@@ -90,6 +90,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsBad: 0
   IsFinish: 0
-  GoodMaterial: {fileID: 2100000, guid: 1c340244fd3102547a909f2c9ba1b864, type: 2}
-  BadMaterial: {fileID: 2100000, guid: bcdb785b4c0686b47a1ccb3584cb7881, type: 2}
-  FinishMaterial: {fileID: 2100000, guid: d4784eea032883645a47944a12ae7f36, type: 2}
+  GoodMaterial: {fileID: 2100000, guid: 4b4009e14794ecb4180fe65c2d555613, type: 2}
+  BadMaterial: {fileID: 2100000, guid: ab1052a29776cdd4aba3979461768659, type: 2}
+  FinishMaterial: {fileID: 2100000, guid: 2b4c779a902b6bb438f6057cb293959d, type: 2}
