@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,9 +8,18 @@ public class Player : MonoBehaviour
     public Platform CurrentPlatform;
     public Game Game;
     public SoundControl SoundControl;
+    public Material Material;
+    public float dissolveRate = 0.0125f;
+    public float refreshRate = 0.025f;
+
+    private void Awake()
+    {
+        Material.SetFloat("_Edge", 0);
+    }
 
     public void Bounce()
     {
+        if (!(Game.CurrentState == Game.State.Playing)) return;
         Rigidbody.velocity = new Vector3(0, BounceSpeed, 0);
         SoundControl.PlayBallBounce();
     }
@@ -17,6 +27,7 @@ public class Player : MonoBehaviour
     public void Die()
     {
         Rigidbody.velocity = Vector3.zero;
+        StartCoroutine(Dissolve());
         Game.OnPlayerDied();
         CurrentPlatform = null;
     }
@@ -32,6 +43,17 @@ public class Player : MonoBehaviour
     {
         Game.AddScore();
         SoundControl.PlayPlatformBreak();
+    }
+
+    private IEnumerator Dissolve()
+    {
+        float counter = 0;
+        while (Material.GetFloat("_Edge") < 1)
+        {
+            counter+= dissolveRate;
+            Material.SetFloat("_Edge", counter);
+            yield return new WaitForSeconds(refreshRate);
+        }
     }
     
 }
