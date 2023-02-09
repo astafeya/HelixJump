@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Game Game;
     public SoundControl SoundControl;
     public Material Material;
+    public ParticleSystem Drops;
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
 
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     public void Bounce()
     {
         if (!(Game.CurrentState == Game.State.Playing)) return;
+        Drops.Play();
         Rigidbody.velocity = new Vector3(0, BounceSpeed, 0);
         SoundControl.PlayBallBounce();
     }
