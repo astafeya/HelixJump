@@ -15,11 +15,11 @@ public class Platform : MonoBehaviour
         }
     }
 
-    public void PlaySystems()
+    public void PlaySectorDestroy()
     {
         for (int i = 0; i < Sectors.Count; i++)
         {
-            Sectors[i].PlaySystem();
+            Sectors[i].PlaySectorDestroy();
         }
     }
 }

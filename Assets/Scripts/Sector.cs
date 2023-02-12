@@ -8,7 +8,8 @@ public class Sector : MonoBehaviour
     public Material BadMaterial;
     public Material FinishMaterial;
     private Material _currentMaterial;
-    public ParticleSystem System;
+    public ParticleSystem SectorDestroy;
+    public ParticleSystem Confetti;
 
     public void UpdateMaterial()
     {
@@ -19,7 +20,7 @@ public class Sector : MonoBehaviour
         }
         GetComponent<Renderer>().material = IsBad ? BadMaterial : GoodMaterial;
         _currentMaterial = GetComponent<Renderer>().material;
-        System.GetComponent<Renderer>().material = IsBad ? BadMaterial : GoodMaterial;
+        SectorDestroy.GetComponent<Renderer>().material = IsBad ? BadMaterial : GoodMaterial;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -29,14 +30,23 @@ public class Sector : MonoBehaviour
         if (dot < 0.5) return;
         if (!IsBad && !IsFinish)
             player.Bounce();
-        else if (IsFinish) player.Win();
+        else if (IsFinish)
+        {
+            PlayConfetti();
+            player.Win();
+        }
         else player.Die();
     }
 
-    public void PlaySystem()
+    public void PlaySectorDestroy()
     {
-        System.Play();
+        SectorDestroy.Play();
         _currentMaterial.SetFloat("_Alpha", 0);
+    }
+
+    public void PlayConfetti()
+    {
+        Confetti.Play();
     }
 
 }

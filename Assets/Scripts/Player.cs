@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
     private void DestroyPreviousPlatform()
     {
-        PreviousPlatform.PlaySystems();
+        PreviousPlatform.PlaySectorDestroy();
     }
 
 }
