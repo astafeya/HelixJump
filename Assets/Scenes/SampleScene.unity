@@ -1854,7 +1854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 5, z: -20}
+  m_LocalPosition: {x: 0, y: 6, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1827752240}
-  PlatformToCameraOffset: {x: 0, y: 5, z: -20}
+  PlatformToCameraOffset: {x: 0, y: 6, z: -20}
   Speed: 20
 --- !u!114 &963194230
 MonoBehaviour:
@@ -7503,6 +7503,7 @@ MonoBehaviour:
   BounceSpeed: 12
   Rigidbody: {fileID: 1827752239}
   CurrentPlatform: {fileID: 0}
+  PreviousPlatform: {fileID: 0}
   Game: {fileID: 297102560}
   SoundControl: {fileID: 452431854}
   Material: {fileID: 2100000, guid: f01a1918df972684a85cf7b604eb338c, type: 2}
