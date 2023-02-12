@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using Random = System.Random;
 
 public class LevelCreator : MonoBehaviour
@@ -46,6 +47,8 @@ public class LevelCreator : MonoBehaviour
         GameObject platform = Instantiate(Platform, transform);
         platform.transform.localPosition = new Vector3(0, -_distance * platformNumber, 0);
         platform.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        Platform pplatform = platform.GetComponent<Platform>();
+        pplatform.Sectors = new List<Sector>();
         if (isFinish)
         {
             for (int i = 0; i < 12; i++)
@@ -58,7 +61,7 @@ public class LevelCreator : MonoBehaviour
         int startSector = 0;
         if (platformNumber == 0)
         {
-            CreateSector(0, platform.transform);
+            pplatform.Sectors.Add(CreateSector(0, platform.transform));
             startSector++;
             sectorNumber--;
             platform.transform.localRotation = Quaternion.Euler(0, 180, 0);
@@ -71,26 +74,26 @@ public class LevelCreator : MonoBehaviour
                 if (badSectorNumber > 0 && (badSectorNumber == sectorNumber + 1 || RandomRange(0, 100) > 74))
                 {
                     badSectorNumber--;
-                    CreateSector(i, true, platform.transform);
+                    pplatform.Sectors.Add(CreateSector(i, true, platform.transform));
                 } else
                 {
-                    CreateSector(i, platform.transform);
+                    pplatform.Sectors.Add(CreateSector(i, platform.transform));
                 }
             }
         }
     }
 
-    private void CreateSector(int sectorNumber, Transform platform)
+    private Sector CreateSector(int sectorNumber, Transform platform)
     {
-        CreateSector(sectorNumber, false, false, platform);
+        return CreateSector(sectorNumber, false, false, platform);
     }
 
-    private void CreateSector(int sectorNumber, bool isBad, Transform platform)
+    private Sector CreateSector(int sectorNumber, bool isBad, Transform platform)
     {
-        CreateSector(sectorNumber, isBad, false, platform);
+        return CreateSector(sectorNumber, isBad, false, platform);
     }
 
-    private void CreateSector(int sectorNumber, bool isBad, bool isFinish, Transform platform)
+    private Sector CreateSector(int sectorNumber, bool isBad, bool isFinish, Transform platform)
     {
         GameObject sector = Instantiate(Sector, platform);
         sector.transform.localPosition = new Vector3(0, 0, 0);
@@ -99,5 +102,6 @@ public class LevelCreator : MonoBehaviour
         ssector.IsFinish = isFinish;
         ssector.IsBad = isBad;
         ssector.UpdateMaterial();
+        return ssector;
     }
 }

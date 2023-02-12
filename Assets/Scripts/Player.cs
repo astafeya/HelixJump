@@ -6,9 +6,11 @@ public class Player : MonoBehaviour
     public float BounceSpeed;
     public Rigidbody Rigidbody;
     public Platform CurrentPlatform;
+    public Platform PreviousPlatform;
     public Game Game;
     public SoundControl SoundControl;
     public Material Material;
+    public ParticleSystem Drops;
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
 
@@ -17,9 +19,17 @@ public class Player : MonoBehaviour
         Material.SetFloat("_Edge", 0);
     }
 
+    private void Update()
+    {
+        if (PreviousPlatform == null) return;
+        DestroyPreviousPlatform();
+        PreviousPlatform = null;
+    }
+
     public void Bounce()
     {
         if (!(Game.CurrentState == Game.State.Playing)) return;
+        Drops.Play();
         Rigidbody.velocity = new Vector3(0, BounceSpeed, 0);
         SoundControl.PlayBallBounce();
     }
@@ -55,5 +65,10 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(refreshRate);
         }
     }
-    
+
+    private void DestroyPreviousPlatform()
+    {
+        PreviousPlatform.PlaySectorDestroy();
+    }
+
 }
