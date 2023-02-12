@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public float BounceSpeed;
     public Rigidbody Rigidbody;
     public Platform CurrentPlatform;
+    public Platform PreviousPlatform;
     public Game Game;
     public SoundControl SoundControl;
     public Material Material;
@@ -16,6 +17,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Material.SetFloat("_Edge", 0);
+    }
+
+    private void Update()
+    {
+        if (PreviousPlatform == null) return;
+        DestroyPreviousPlatform();
+        PreviousPlatform = null;
     }
 
     public void Bounce()
@@ -57,5 +65,10 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(refreshRate);
         }
     }
-    
+
+    private void DestroyPreviousPlatform()
+    {
+        PreviousPlatform.PlaySystems();
+    }
+
 }
